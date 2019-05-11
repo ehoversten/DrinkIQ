@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <title>Drink IQ</title>
 </head>
 
@@ -45,23 +45,16 @@
         <div class="row">
             <div class="col-md-6 m-auto">
                 <h1>Dashboard</h1>
-                <form action="/api/add" method="POST">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Drink Name</label>
-                        <input type="text" class="form-control" id="drinkName" name="name" aria-describedby="drinkName"
-                            placeholder="Enter Title">
-                        <small id="drinkName" class="form-text text-muted">What do you like to call it?</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="drinkAmt">How Much?</label>
-                        <input type="text" class="form-control" id="drinkAmt" name="amt" placeholder="Amount">
-                    </div>
-                    <div class="form-group">
-                        <label for="drinkMeasure">Enter Measurement</label>
-                        <input type="text" class="form-control" id="drinkMeasure" name="measure" placeholder="Measure">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                <% if(!allDrinks) { %>
+                    <h3>No Drinks Listed</h3>
+                <% } %>
+                <% if(allDrinks) { %>
+                <ul>
+                    <% allDrinks.forEach(drink => { %>
+                      <li><a href="/api/<%= drink.id %>"><%= drink.name %></a></li>
+                    <% }); %>
+                </ul>
+                <%  }  %>
             </div>
         </div>
     </div>

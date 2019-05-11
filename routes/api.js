@@ -9,7 +9,24 @@ const Drink = mongoose.model('drinks');
 
 
 router.get('/', (req, res) => {
-    res.render('drinks/dashboard');
+    // ES5
+    // Drink.find({}, function(err, drinks){
+    //     if(err){
+    //         console.log(err);
+    //         res.redirect('/');
+    //     } else {
+    //         console.log(drinks);
+    //         res.render('drinks/dashboard', {allDrinks: drinks});
+    //     }
+    // });
+
+    // ES6 version
+    Drink.find({})
+        .then(drinks => {
+            // console.log(drinks);
+            res.render('drinks/dashboard', { allDrinks: drinks });
+        })
+        .catch(err => { console.log(err) });
 });
 
 router.get('/add', (req, res) => {
@@ -27,10 +44,10 @@ router.post('/', (req, res) => {
 
     // Server Side Validation
     if(!req.body.name){
-        errors.push({text: 'Please Enter and Ingredient'});
+        errors.push({text: 'Please Enter Name'});
     }
     if (!req.body.description) {
-        errors.push({ text: 'Enter and Amount' });
+        errors.push({ text: 'Enter Description' });
     }
 
     // if ERRORs exist
@@ -64,7 +81,19 @@ router.post('/', (req, res) => {
     }
 
     res.redirect('/api');
-})
+});
+
+
+router.get('/:id', (req, res) => {
+    Drink.findById(req.params.id, (err, drink) => {
+        if(err){
+            console.log(err);
+            res.redirect('/api');
+        }
+        console.log(`Found: ${drink}`);
+        res.render('drinks/detail', {drink: drink});
+    });
+});
 
 module.exports = router;
 
