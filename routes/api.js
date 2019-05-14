@@ -38,6 +38,9 @@ router.post('/', (req, res) => {
     console.log('**********************');
     console.log(`Request: ${req.body.name}`);
     console.log(`Request: ${req.body.description}`);
+    console.log(`Request: ${req.body.ingredient}`);
+    console.log(`Request: ${req.body.amount}`);
+    console.log(`Request: ${req.body.measurement}`);
 
     // Create Errors Array 
     let errors = [];
@@ -55,14 +58,24 @@ router.post('/', (req, res) => {
         res.render('api/add', {
             errors: errors, 
             name: req.body.name,
-            description: req.body.description
+            description: req.body.description,
+            ingredients: [{ 
+                liquor: req.body.ingredient, 
+                amt: req.body.amount, 
+                postscript: req.body.measurement
+            }]
         });
     } else {
         // console.log('PASSED VALIDATION');
         // Save new OBJECT to Database
         const newDrink = {
             name: req.body.name,
-            description: req.body.description
+            description: req.body.description,
+            ingredients: [{
+                liquor: req.body.ingredient,
+                amt: req.body.amount,
+                postscript: req.body.measurement
+            }]
         }
         new Drink(newDrink)
             .save()

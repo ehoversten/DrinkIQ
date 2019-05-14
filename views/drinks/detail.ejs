@@ -19,10 +19,16 @@
         <% } %>
         <% if(drink) { %>
         <div class="col-md-6 m-auto">
-            <div class="row">
+            <div class="row d-block">
                 <p><%= drink.name %></p>
                 <p><%= drink.description %></p>
-                <p><%= drink.ingredients %></p>
+                <% if(drink.ingredients) { %>
+                    <ul>
+                    <% drink.ingredients.forEach(ingredient => { %>
+                        <li><%= ingredient.liquor %> - <%= ingredient.amt %> <%= ingredient.postscript %></li>
+                    <% }); %>
+                    </ul>
+                <% } %>
             </div>
         </div>
         <% } %>
