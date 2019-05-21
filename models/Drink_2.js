@@ -1,41 +1,50 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Ingredient = require('./Ingredient');
+// const Ingredient = require('./Ingredient');
 
-// const IngredientSchema = new Schema({
-//     name: {
-//         type: String
-//     },
-//     amt: {
-//         type: String
-//     },
-//     postscript: {
-//         type: String
-//     },
-//     category: {
-//         type: String
-//     }
-// });
+const IngredientSchema = new Schema({
+    name: {
+        type: String
+    },
+    amt: {
+        type: String
+    },
+    postscript: {
+        type: String
+    },
+    category: {
+        type: String
+    }
+});
 
-
-// module.exports = mongoose.model('Ingredients', IngredientSchema);
+const Ingredient = mongoose.model('ingredients', IngredientSchema);
+module.exports = Ingredient;
 
 const DrinkSchema = new Schema({
     name: {
         type: String,
         required: true
     },
-    ingredients: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Ingredient'
-    }],
+    ingredients: [ IngredientSchema
+        // {
+        //     liquor: {
+        //         type: String
+        //     },
+        //     amt: {
+        //         type: Number
+        //     },
+        //     postscript: {
+        //         type: String
+        //     }
+        // }
+    ],
     description: {
         type: String
     },
     notes: {
         type: String,
-    }, 
+    },
     image: {
         type: String,
         // required: true
@@ -44,13 +53,9 @@ const DrinkSchema = new Schema({
         type: String,
         // required: true
     }
-}); 
+});
 
 // mongoose.model('drinks', DrinkSchema);
-
-// let Ingredient = mongoose.model('Ingredient', IngredientSchema);
-// module.exports = Ingredient;
-
 
 const Drink = mongoose.model('drinks', DrinkSchema);
 module.exports = Drink;

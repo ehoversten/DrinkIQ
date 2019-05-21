@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
+const path = require('path');
 
 const routes = require('./routes/api');
 
@@ -18,8 +19,10 @@ mongoose.Promise = global.Promise;
 // Instaniate App Instance
 const app = express();
 
+app.use(express.static(path.join(__dirname, "public")));
+
 // SET up STATIC files
-app.use(express.static('public'))
+// app.use(express.static('public'));
 // Set View EJS Templates as View Engine
 app.set('view engine', 'ejs');
 

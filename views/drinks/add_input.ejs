@@ -36,7 +36,7 @@
                     <div class="card-content">
                         <span class="card-title center">Drink List</span>
                         <div class="row">
-                            <form action="/api" id="drink-form" method="POST">
+                            <form action="/api/add" id="drink-form" method="POST">
                                 <div class="input-field col s12">
                                     <input type="text" name="name" id="name">
                                     <label for="name">New Drink</label>
@@ -55,32 +55,11 @@
                                     <input type="text" name="measurement_1" id="measurement_1">
                                     <label for="measurement_1">Measurement</label>
                                 </div>
-                                <!-- INGREDIENT #2-->
-                                <div class="input-field col s4">
-                                    <input type="text" name="ingredient_2" id="ingredient_2">
-                                    <label for="ingredient_2">Ingredient</label>
+                                <!-- Dynamically Add Additional Inputs -->
+                                <div id="add-btn" >
+                                    <button id="add-inc" class="btn red"><a href="#" id="add-inc-link">+</a></button>
                                 </div>
-                                <div class="input-field col s4">
-                                    <input type="text" name="amt_2" id="amt_2">
-                                    <label for="amt">Amount</label>
-                                </div>
-                                <div class="input-field col s4">
-                                    <input type="text" name="measurement_2" id="measurement_2">
-                                    <label for="measurement_2">Measurement</label>
-                                </div>
-                                <!-- INGREDIENT #3 -->
-                                <div class="input-field col s4">
-                                    <input type="text" name="ingredient_3" id="ingredient_3">
-                                    <label for="ingredient_3">Ingredient</label>
-                                </div>
-                                <div class="input-field col s4">
-                                    <input type="text" name="amt_3" id="amt_3">
-                                    <label for="amt_3">Amount</label>
-                                </div>
-                                <div class="input-field col s4">
-                                    <input type="text" name="measurement_3" id="measurement_3">
-                                    <label for="measurement_3">Measurement</label>
-                                </div>
+                                <div id="add_ingredients"></div>
 
                                 <!-- Description -->
                                 <div class="input-field col s12">
@@ -111,7 +90,7 @@
     </div>
     <!--JavaScript at end of body for optimized loading-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
-    <script src="./main_add.js"></script>
+    <script src="../../public/js/main_add.js"></script>
 </body>
 
 </html>

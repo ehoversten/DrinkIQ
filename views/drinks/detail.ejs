@@ -8,12 +8,35 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../../public/css/styles.css" type="text/css">
     <title>Drink IQ</title>
 
 </head>
 <body>
     <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Drink iQ</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Drinks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container mt-5">
         <% if(!drink) { %>
         <h2>Nothing Here</h2>
         <% } %>
@@ -25,7 +48,8 @@
                 <% if(drink.ingredients) { %>
                     <ul>
                     <% drink.ingredients.forEach(ingredient => { %>
-                        <li><%= ingredient.liquor %> - <%= ingredient.amt %> <%= ingredient.postscript %></li>
+                        <!-- <li><%= ingredient.id %></li> -->
+                        <li><%= ingredient.name %> - <%= ingredient.amt %> <%= ingredient.postscript %></li>
                     <% }); %>
                     </ul>
                 <% } %>
@@ -33,6 +57,14 @@
         </div>
         <% } %>
     </div>
-    
+
+    <div class="container">
+        <div id="button-js">
+            <button id="js-btn" class="btn btn-primary">+</button>
+        </div>
+        <div id="add-stuff"></div>
+    </div>
+
+    <script src="../../public/js/adding.js"></script>
 </body>
 </html>

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../public/css/styles.css" type="text/css">
     <title>Drink List</title>
 </head>
 
@@ -36,41 +36,69 @@
                     <div class="card-content">
                         <span class="card-title center">Drink List</span>
                         <div class="row">
-                            <form action="#" id="drink-form">
+                            <form action="api/" id="drink-form" method="POST">
                                 <div class="input-field col s12">
-                                    <input type="text" name="drink" id="drink">
-                                    <label for="drink">New Drink</label>
+                                    <input type="text" name="name" id="name">
+                                    <label for="name">New Drink</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <input type="text" name="description" id="description">
                                     <label for="description">Add Description</label>
                                 </div>
+                                <h5>Ingredients: </h5>
+
+
+                                <!-- INGREDIENT #1 -->
+                                <div class="input-field col s4">
+                                    <input type="text" name="ingredient_1" id="ingredient_1">
+                                    <label for="ingredient_1">Ingredient</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input type="text" name="amt_1" id="amt_1">
+                                    <label for="amt_1">Amount</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input type="text" name="measurement_1" id="measurement_1">
+                                    <label for="measurement_1">Measurement</label>
+                                </div>
+                                <!-- INGREDIENT #2-->
+                                <div class="input-field col s4">
+                                    <input type="text" name="ingredient_2" id="ingredient_2">
+                                    <label for="ingredient_2">Ingredient</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input type="text" name="amt_2" id="amt_2">
+                                    <label for="amt">Amount</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input type="text" name="measurement_2" id="measurement_2">
+                                    <label for="measurement_2">Measurement</label>
+                                </div>
+                                <!-- INGREDIENT #3 -->
+                                <div class="input-field col s4">
+                                    <input type="text" name="ingredient_3" id="ingredient_3">
+                                    <label for="ingredient_3">Ingredient</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input type="text" name="amt_3" id="amt_3">
+                                    <label for="amt_3">Amount</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input type="text" name="measurement_3" id="measurement_3">
+                                    <label for="measurement_3">Measurement</label>
+                                </div>
+                                
+                                <!-- ADD NEW INPUT -->
+                                <div id="add-new-ingredient"></div>
+                                <button id="add-ingredient" class="btn red">Add Ingredient</button>
+
+
                                 <div class="input-field col s12">
                                     <textarea id="textarea1" class="materialize-textarea"></textarea>
                                     <label for="note">Add Note</label>
                                 </div>
                                 <input type="submit" value="Add Drink" class="btn  blue-grey">
                             </form>
-                        </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <form action="#" id="ingredient-form">
-                                    <div class="input-field col s4">
-                                        <input type="text" name="ingredient" id="ingredient">
-                                        <label for="ingredient">Ingredient</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input type="text" name="amt" id="amt">
-                                        <label for="amt">Amount</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input type="text" name="measurement" id="measurement">
-                                        <label for="measurement">Measurement</label>
-                                    </div>
-                                    <div id="add-new-ingredient"></div>
-                                    <button id="add-ingredient" class="btn red">Add Ingredient</button>
-                                </form>
-                            </div>
                         </div>
                     </div>
                     <div class="card-action">
@@ -88,7 +116,7 @@
     </div>
     <!--JavaScript at end of body for optimized loading-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
-    <script src="./main.js"></script>
+    <!-- <script src="./main.js"></script> -->
 </body>
 
 </html>
