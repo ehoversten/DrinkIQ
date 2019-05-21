@@ -114,61 +114,125 @@ router.post('/', (req, res) => {
         });
         console.log(newIngredient_3);
 
-        // Save new OBJECT to Database
-        const newDrink = {
+        // Create new Object and Save to DB
+        Drink.create({
             name: req.body.name,
             description: req.body.description,
-            // ingredients: [{
-            //     liquor: req.body.ingredient_1,
-            //     amt: req.body.amt_1,
-            //     postscript: req.body.measurement_1
-            // }, {
-            //     liquor: req.body.ingredient_2,
-            //     amt: req.body.amt_2,
-            //     postscript: req.body.measurement_2
-            // }, {
-            //     liquor: req.body.ingredient_3,
-            //     amt: req.body.amt_3,
-            //     postscript: req.body.measurement_3
-            // }]
-        }
-        // Create new Instance
-        new Drink(newDrink)
-            .save()
-            // Create Promise
-            .then(idea => {
-                // show flash message
-                // req.flash('success_msg', 'Drink Added');
-                console.log("Drink Saved");
-
-                // Retrieve Record Just Created
-                Drink.findById({ _id: req.params.id })
-                    .then(data => {
-                        console.log(data);
-                        data.ingredients.push(newIngredient_1);
-                        data.ingredients.push(newIngredient_2);
-                        data.ingredients.push(newIngredient_3);
-                        console.log(`Found Drink: ${data}`);
-                        data.save()
-                            .then(item => {
-                                console.log("Ingredients Saved");
-                                // redirect to Ideas List page
-                                // res.redirect('/api');
-                            })
-                            .catch(err => {
-                                console.log(err);
-                            });
-                    })
-                    .catch(err => {
+            notes: req.body.note
+        }, function (err, drink) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(drink);
+                // Create/Add ingredient to drink array
+                Ingredient.create({
+                    name: req.body.ingredient_1,
+                    amt: req.body.amt_1,
+                    postscript: req.body.measurement_1
+                }, function (err, ingredient) {
+                    if (err) {
                         console.log(err);
-                    });
-                // redirect to Ideas List page
-                res.redirect('/api');
-            })
-            .catch(err => { 
-                console.log(err); 
-                res.redirect('/api/add');
-            });
+                    } else {
+                        console.log(ingredient);
+                        drink.ingredients.push(ingredient);
+                        console.log("Ingredient added");
+                    }
+                });
+                // Create/Add ingredient to drink array
+                Ingredient.create({
+                    name: req.body.ingredient_2,
+                    amt: req.body.amt_2,
+                    postscript: req.body.measurement_2
+                }, function (err, ingredient) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(ingredient);
+                        drink.ingredients.push(ingredient);
+                        console.log("Ingredient added");
+                    }
+                });
+                // Create/Add ingredient to drink array
+                Ingredient.create({
+                    name: req.body.ingredient_3,
+                    amt: req.body.amt_3,
+                    postscript: req.body.measurement_3
+                }, function (err, ingredient) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(ingredient);
+                        drink.ingredients.push(ingredient);
+                        console.log("Ingredient added");
+
+                        // Save Ingredients to Drink
+                        // drink.save();
+                        // console.log("Ingredient saved");
+                    }
+
+                    // Save Ingredients to Drink
+                    drink.save();
+                    console.log("Ingredient saved");
+                });
+                
+            }
+        }) // end of CREATE method
+
+        // Save new OBJECT to Database
+        // const newDrink = {
+        //     name: req.body.name,
+        //     description: req.body.description,
+        //     // ingredients: [{
+        //     //     liquor: req.body.ingredient_1,
+        //     //     amt: req.body.amt_1,
+        //     //     postscript: req.body.measurement_1
+        //     // }, {
+        //     //     liquor: req.body.ingredient_2,
+        //     //     amt: req.body.amt_2,
+        //     //     postscript: req.body.measurement_2
+        //     // }, {
+        //     //     liquor: req.body.ingredient_3,
+        //     //     amt: req.body.amt_3,
+        //     //     postscript: req.body.measurement_3
+        //     // }]
+        // }
+        // // Create new Instance
+        // new Drink(newDrink)
+        //     .save()
+        //     // Create Promise
+        //     .then(idea => {
+        //         // show flash message
+        //         // req.flash('success_msg', 'Drink Added');
+        //         console.log("Drink Saved");
+
+        //         // Retrieve Record Just Created
+        //         Drink.findById({ _id: req.params.id })
+        //             .then(data => {
+        //                 console.log(data);
+        //                 data.ingredients.push(newIngredient_1);
+        //                 data.ingredients.push(newIngredient_2);
+        //                 data.ingredients.push(newIngredient_3);
+        //                 console.log(`Found Drink: ${data}`);
+        //                 data.save()
+        //                     .then(item => {
+        //                         console.log("Ingredients Saved");
+        //                         // redirect to Ideas List page
+        //                         // res.redirect('/api');
+        //                     })
+        //                     .catch(err => {
+        //                         console.log(err);
+        //                     });
+        //             })
+        //             .catch(err => {
+        //                 console.log(err);
+        //             });
+        //         // redirect to Ideas List page
+        //         res.redirect('/api');
+        //     })
+        //     .catch(err => { 
+        //         console.log(err); 
+        //         res.redirect('/api/add');
+        //     });
     }
 
     res.redirect('/api');
@@ -176,7 +240,8 @@ router.post('/', (req, res) => {
 
 router.post('/add', (req, res) => {
     Drink.create({ 
-        name: "Old Fashoned", description: "Its like paint thinner, I like it" 
+        name: "Old Fashoned", 
+        description: "Its like paint thinner, I like it" 
     }, function(err, drink){
         if(err){
             console.log(err);
@@ -192,7 +257,6 @@ router.post('/add', (req, res) => {
                 } else {
                     console.log(ingredient);
                     drink.ingredients.push(ingredient);
-                    // drink.save();
                     console.log("Ingredient added");
                 }
             });
