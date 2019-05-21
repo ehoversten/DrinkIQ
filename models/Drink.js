@@ -3,24 +3,6 @@ const Schema = mongoose.Schema;
 
 const Ingredient = require('./Ingredient');
 
-// const IngredientSchema = new Schema({
-//     name: {
-//         type: String
-//     },
-//     amt: {
-//         type: String
-//     },
-//     postscript: {
-//         type: String
-//     },
-//     category: {
-//         type: String
-//     }
-// });
-
-
-// module.exports = mongoose.model('Ingredients', IngredientSchema);
-
 const DrinkSchema = new Schema({
     name: {
         type: String,
@@ -45,11 +27,6 @@ const DrinkSchema = new Schema({
         // required: true
     }
 }); 
-
-// mongoose.model('drinks', DrinkSchema);
-
-// let Ingredient = mongoose.model('Ingredient', IngredientSchema);
-// module.exports = Ingredient;
 
 
 const Drink = mongoose.model('drinks', DrinkSchema);
