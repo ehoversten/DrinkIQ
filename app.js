@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const ejs = require('ejs');
 const path = require('path');
 
@@ -30,6 +31,9 @@ app.set('view engine', 'ejs');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'));
 
 // Express-Session Middleware setup
 // app.use(session({

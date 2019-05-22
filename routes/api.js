@@ -11,6 +11,10 @@ require('../models/Ingredient');
 const Ingredient = mongoose.model('Ingredient');
 
 
+
+// ------------------------------------//
+//           GET ALL ROUTE             //
+// ------------------------------------//
 router.get('/', (req, res) => {
     // ES5
     // Drink.find({}, function(err, drinks){
@@ -32,11 +36,17 @@ router.get('/', (req, res) => {
         .catch(err => { console.log(err) });
 });
 
+// ------------------------------------//
+//          ADD FORM ROUTE             //
+// ------------------------------------//
 router.get('/add', (req, res) => {
     res.render('drinks/add_input');
     // res.render('drinks/add');
 });
 
+// ------------------------------------//
+//        CREATE DRINK ROUTE           //
+// ------------------------------------//
 router.post('/', (req, res) => {
     console.log('POST');
     console.log('**********************');
@@ -149,17 +159,16 @@ router.post('/', (req, res) => {
                     // Save Ingredients to Drink
                     drink.save();
                     console.log("Ingredient saved");
-                });
-                
+                });  
             }
         }) // end of CREATE method
-
     }
-
     res.redirect('/api');
 });
 
-
+// ------------------------------------//
+//            GET by ID ROUTE          //
+// ------------------------------------//
 router.get('/:id', (req, res) => {
     Drink.findById({ _id: req.params.id })
         .populate("ingredients")
@@ -172,6 +181,66 @@ router.get('/:id', (req, res) => {
             res.render('drinks/detail', { drink: drink });
         });
 });
+
+// ------------------------------------//
+//           EDIT DRINK ROUTE          //
+// ------------------------------------//
+router.get('/:id/edit', (req, res) => {
+    Drink.findById({ _id: req.params.id })
+        .populate("ingredients")
+        .exec(function (err, drink) {
+            if (err) {
+                console.log(err);
+                res.redirect('/api');
+            }
+            console.log(`Found Ingredients: ${drink}`);
+            res.render('drinks/edit', { drink: drink });
+        });
+});
+
+
+// ------------------------------------//
+//         UPDATE DRINK ROUTE          //
+// ------------------------------------//
+router.put('/:id/edit', (req, res) => {
+    Drink.findById(req.params.id,  (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(data);
+
+            res.render('drinks/edit', { drink: data });
+        }
+    });
+});
+
+
+// ------------------------------------//
+//            DELETE ROUTE             //
+// ------------------------------------//
+router.delete(':id', (req, res) => {
+    res.send("DELETE ROUTE");
+    // Drink.findByIdAndRemove(req.params.id, (err) => {
+    //     if(err){
+    //         console.log(err);
+    //     } else {
+    //         console.log("Drink removed");
+    //         res.redirect('/api');
+    //     }
+    // });
+});
+
+// router.post(':id/delete', (req, res) => {
+//     console.log("HIT DELETE ROUTE");
+//     Drink.findById(req.params.id, (err, drink) => {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             drink.remove();
+//             console.log("Drink deleted");
+//         }
+//     });
+// });
 
 module.exports = router;
 
