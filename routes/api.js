@@ -225,9 +225,9 @@ router.put('/:id/edit', (req, res) => {
 //            DELETE ROUTE             //
 // ------------------------------------//
 router.delete('/:id', (req, res) => {
-    // res.send("DELETE ROUTE");
-    Drink.findOneAndDelete(req.params.id, (err) => {
-        if(err){
+
+    Drink.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
             console.log(err);
         } else {
             console.log("Drink removed");

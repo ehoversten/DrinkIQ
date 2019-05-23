@@ -39,8 +39,8 @@
                     <% }); %>
                     </ul>
                 <% } %>
-
-                <a href="/api/<%= drink.id %>/edit" class="btn btn-success">Edit</a>
+                <p><%= drink.notes %></p>
+                <a href="/api/<%= drink._id %>/edit" class="btn btn-success">Edit</a>
                 <form action="/api/<%= drink._id %>?_method=DELETE" method="POST">
                     <button class="btn btn-danger">Delete</button>
                 </form>

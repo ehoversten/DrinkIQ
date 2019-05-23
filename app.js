@@ -16,6 +16,9 @@ mongoose.connect('mongodb://localhost/drink-iq', { useNewUrlParser: true })
 // Use native promises (only necessary with mongoose versions <= 4)
 mongoose.Promise = global.Promise;
 
+// Make Mongoose use `findOneAndUpdate()`. Note that this option is `true`
+// by default, you need to set it to false.
+mongoose.set('useFindAndModify', false);
 
 // Instaniate App Instance
 const app = express();
