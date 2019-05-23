@@ -36,7 +36,7 @@
                     <div class="card-content">
                         <span class="card-title center">Edit Drink</span>
                         <div class="row">
-                            <form action="/api/<%= drink.id %>/?_method=PUT" id="drink-form" method="POST">
+                            <form id="edit-form" action="/api/<%= drink.id %>/edit?_method=PUT" method="POST">
                                 <div class="input-field col s12">
                                     <input type="text" name="name" id="name" value="<%= drink.name %>">
                                     <label for="name">New Drink</label>
@@ -45,48 +45,38 @@
                                     <input type="text" name="description" id="description" value="<%= drink.description %>">
                                     <label for="description">Add Description</label>
                                 </div>
+                                <div class="input-field col s12">
+                                    <textarea id="note" class="materialize-textarea" name="note" value="<%= drink.notes %>"></textarea>
+                                    <label for="note">Add Note</label>
+                                </div>
                                 <h5>Ingredients: </h5>
 
                                 <% if (drink.ingredients) { %>
                                     <% drink.ingredients.forEach(ingredient => { %>
 
                                         <div class="input-field col s4">
-                                            <input type="text" name="ingredient_1" id="ingredient_1" value="<%= ingredient.name %>">
-                                            <label for="ingredient_1">Ingredient</label>
+                                            <input type="text" name="ingredient_<%= counter %>" id="ingredient_<%= counter %>" value="<%= ingredient.name %>">
+                                            <label for="ingredient_<%= counter %>">Ingredient</label>
                                         </div>
                                         <div class="input-field col s4">
-                                            <input type="text" name="amt_1" id="amt_1" value="<%= ingredient.amt %>">
-                                            <label for="amt_1">Amount</label>
+                                            <input type="text" name="amt_<%= counter %>" id="amt_<%= counter %>" value="<%= ingredient.amt %>">
+                                            <label for="amt_<%= counter %>">Amount</label>
                                         </div>
                                         <div class="input-field col s4">
-                                            <input type="text" name="measurement_1" id="measurement_1" value="<%= ingredient.postscript %>">
-                                            <label for="measurement_1">Measurement</label>
+                                            <input type="text" name="measurement_<%= counter %>" id="measurement_<%= counter %>" value="<%= ingredient.postscript %>">
+                                            <label for="measurement_<%= counter %>">Measurement</label>
                                         </div>
-
+                                        <% counter++ %>
                                     <% }) %>
                                 <% } %>
 
                                 <!-- ADD NEW INPUT -->
                                 <div id="add-new-ingredient"></div>
                                 <button id="add-ingredient" class="btn red">Add Ingredient</button>
-
-
-                                <div class="input-field col s12">
-                                    <textarea id="textarea1" class="materialize-textarea" value="<%= drink.notes %>"></textarea>
-                                    <label for="note">Add Note</label>
-                                </div>
-                                <input type="submit" value="Add Drink" class="btn  blue-grey">
+                            
+                                <input type="submit" value="Save Drink" class="btn  blue-grey">
                             </form>
                         </div>
-                    </div>
-                    <div class="card-action">
-                        <h5 id="drink-title">Find Your Drink ...</h5>
-                        <div class="input-field col s12">
-                            <input type="text" name="filter" id="filter">
-                            <label for="filter">Filter Drink</label>
-                        </div>
-                        <ul class="collection"></ul>
-                        <a href="#" class="clear-drinks btn black">Clear Drinks</a>
                     </div>
                 </div>
             </div>

@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
     //         res.redirect('/');
     //     } else {
     //         console.log(drinks);
-    //         res.render('drinks/dashboard', {allDrinks: drinks});
+    //         res.render('drinks/dashboard', {drinks: drinks});
     //     }
     // });
 
@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
     Drink.find({})
         .then(drinks => {
             // console.log(drinks);
-            res.render('drinks/dashboard', { allDrinks: drinks });
+            res.render('drinks/dashboard', { drinks: drinks });
         })
         .catch(err => { console.log(err) });
 });
@@ -186,6 +186,8 @@ router.get('/:id', (req, res) => {
 //           EDIT DRINK ROUTE          //
 // ------------------------------------//
 router.get('/:id/edit', (req, res) => {
+
+    let counter = 1;
     Drink.findById({ _id: req.params.id })
         .populate("ingredients")
         .exec(function (err, drink) {
@@ -193,8 +195,8 @@ router.get('/:id/edit', (req, res) => {
                 console.log(err);
                 res.redirect('/api');
             }
-            console.log(`Found Ingredients: ${drink}`);
-            res.render('drinks/edit', { drink: drink });
+            console.log(`Found: ${drink}`);
+            res.render('drinks/edit', { drink: drink, counter: counter });
         });
 });
 
@@ -203,13 +205,17 @@ router.get('/:id/edit', (req, res) => {
 //         UPDATE DRINK ROUTE          //
 // ------------------------------------//
 router.put('/:id/edit', (req, res) => {
-    Drink.findById(req.params.id,  (err, data) => {
+    Drink.findOneAndUpdate( { _id: req.params.id }, 
+        {
+            name: req.body.name, 
+            description: req.body.description,
+            notes: req.body.note,
+        }, (err, data) => {
         if (err) {
             console.log(err);
         } else {
             console.log(data);
-
-            res.render('drinks/edit', { drink: data });
+            res.redirect('/api');
         }
     });
 });
@@ -218,26 +224,38 @@ router.put('/:id/edit', (req, res) => {
 // ------------------------------------//
 //            DELETE ROUTE             //
 // ------------------------------------//
-router.delete(':id', (req, res) => {
-    res.send("DELETE ROUTE");
-    // Drink.findByIdAndRemove(req.params.id, (err) => {
-    //     if(err){
-    //         console.log(err);
-    //     } else {
-    //         console.log("Drink removed");
-    //         res.redirect('/api');
-    //     }
-    // });
+router.delete('/:id', (req, res) => {
+    // res.send("DELETE ROUTE");
+    Drink.findOneAndDelete(req.params.id, (err) => {
+        if(err){
+            console.log(err);
+        } else {
+            console.log("Drink removed");
+            res.redirect('/api');
+        }
+    });
 });
 
-// router.post(':id/delete', (req, res) => {
+// router.delete('/:id', (req, res) => {
 //     console.log("HIT DELETE ROUTE");
 //     Drink.findById(req.params.id, (err, drink) => {
 //         if (err) {
 //             console.log(err);
 //         } else {
-//             drink.remove();
+//             // Delete All Ingredients First
+//             drink.ingredients.forEach(item => {
+//                 item.findOneAndDelete({ _id: item._id}, (err) => {
+//                     if(err){
+//                         console.log(err);
+//                     } else {
+//                         console.log(`${item} removed`);
+//                     }
+//                 })
+//             }); 
+//             // Delete Drink From DB
+//             // drink.remove();
 //             console.log("Drink deleted");
+//             res.redirect('/api');
 //         }
 //     });
 // });

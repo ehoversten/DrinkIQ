@@ -45,12 +45,12 @@
         <div class="row">
             <div class="col-md-6 m-auto">
                 <h1>Dashboard</h1>
-                <% if(!allDrinks) { %>
+                <% if(!drinks) { %>
                     <h3>No Drinks Listed</h3>
                 <% } %>
-                <% if(allDrinks) { %>
+                <% if(drinks) { %>
                 <ul>
-                    <% allDrinks.forEach(drink => { %>
+                    <% drinks.forEach(drink => { %>
                       <li><a href="/api/<%= drink.id %>"><%= drink.name %></a></li>
                     <% }); %>
                 </ul>
