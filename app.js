@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const multer = require('multer');
 const ejs = require('ejs');
 const path = require('path');
 
@@ -24,6 +25,7 @@ mongoose.set('useFindAndModify', false);
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use('/public/uploads', express.static('uploads'));
 
 // SET up STATIC files
 // app.use(express.static('public'));

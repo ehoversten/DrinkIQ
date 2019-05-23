@@ -15,7 +15,7 @@ const DrinkSchema = new Schema({
     description: {
         type: String
     },
-    notes: {
+    note: {
         type: String,
     }, 
     image: {

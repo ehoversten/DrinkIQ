@@ -36,18 +36,25 @@
                     <div class="card-content">
                         <span class="card-title center">Drink List</span>
                         <div class="row">
-                            <form action="api/" id="drink-form" method="POST">
+                            <form action="api/" id="drink-form" method="POST" enctype="multipart/form-data">
+                                <!-- DRINK NAME -->
                                 <div class="input-field col s12">
                                     <input type="text" name="name" id="name">
                                     <label for="name">New Drink</label>
                                 </div>
+                                <!-- DRINK DESCRIPTION -->
                                 <div class="input-field col s12">
                                     <input type="text" name="description" id="description">
                                     <label for="description">Add Description</label>
                                 </div>
+
+                                <!-- DRINK NOTES-->
+                                <div class="input-field col s12">
+                                    <textarea id="textarea1" class="materialize-textarea" name="note"></textarea>
+                                    <label for="note">Add Note</label>
+                                </div>
+
                                 <h5>Ingredients: </h5>
-
-
                                 <!-- INGREDIENT #1 -->
                                 <div class="input-field col s4">
                                     <input type="text" name="ingredient_1" id="ingredient_1">
@@ -92,24 +99,23 @@
                                 <div id="add-new-ingredient"></div>
                                 <button id="add-ingredient" class="btn red">Add Ingredient</button>
 
-
-                                <div class="input-field col s12">
-                                    <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                    <label for="note">Add Note</label>
+                                <!-- IMAGE UPLOAD -->
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>File</span>
+                                        <input type="file" name="drink_img" id="drink_img">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
                                 </div>
+                                
+                                
                                 <input type="submit" value="Add Drink" class="btn  blue-grey">
                             </form>
                         </div>
                     </div>
-                    <div class="card-action">
-                        <h5 id="drink-title">Find Your Drink ...</h5>
-                        <div class="input-field col s12">
-                            <input type="text" name="filter" id="filter">
-                            <label for="filter">Filter Drink</label>
-                        </div>
-                        <ul class="collection"></ul>
-                        <a href="#" class="clear-drinks btn black">Clear Drinks</a>
-                    </div>
+
                 </div>
             </div>
         </div>

@@ -1,7 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
+const multer = require('multer');
 
+// SET STORAGE
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, new Date().toISOString() + file.originalname);
+    }
+})
+
+const upload = multer({ storage: storage });
 
 // LOAD DATABASE DATA
 require('../models/Drink');
@@ -47,8 +59,8 @@ router.get('/add', (req, res) => {
 // ------------------------------------//
 //        CREATE DRINK ROUTE           //
 // ------------------------------------//
-router.post('/', (req, res) => {
-    console.log('POST');
+router.post('/', upload.single('drink_img'), (req, res) => {
+
     console.log('**********************');
     console.log(`Request: ${req.body.name}`);
     console.log(`Request: ${req.body.description}`);
@@ -64,6 +76,8 @@ router.post('/', (req, res) => {
     console.log(`Ingredient 3: ${req.body.ingredient_3}`);
     console.log(`Amt 2: ${req.body.amt_3}`);
     console.log(`Measure 3: ${req.body.measurement_3}`);
+
+    console.log(req.file);
 
 
     // Create Errors Array 
@@ -83,6 +97,7 @@ router.post('/', (req, res) => {
             errors: errors, 
             name: req.body.name,
             description: req.body.description,
+            note: req.body.note,
             ingredients: [{ 
                 name: req.body.ingredient_1, 
                 amt: req.body.amt_1, 
@@ -100,11 +115,13 @@ router.post('/', (req, res) => {
     } else {
         console.log('PASSED VALIDATION');
 
+
         // Create new Object and Save to DB
         Drink.create({
             name: req.body.name,
             description: req.body.description,
-            notes: req.body.note
+            note: req.body.note,
+            image: req.file.path
         }, function (err, drink) {
             if (err) {
                 console.log(err);
@@ -177,7 +194,7 @@ router.get('/:id', (req, res) => {
                 console.log(err);
                 res.redirect('/api');
             }
-            console.log(`Found Ingredients: ${drink}`);
+            console.log(`Found: ${drink}`);
             res.render('drinks/detail', { drink: drink });
         });
 });
@@ -210,6 +227,7 @@ router.put('/:id/edit', (req, res) => {
             name: req.body.name, 
             description: req.body.description,
             notes: req.body.note,
+            image: req.file
         }, (err, data) => {
         if (err) {
             console.log(err);
