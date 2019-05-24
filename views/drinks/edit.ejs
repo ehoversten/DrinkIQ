@@ -73,6 +73,20 @@
                                 <!-- ADD NEW INPUT -->
                                 <div id="add-new-ingredient"></div>
                                 <button id="add-ingredient" class="btn red">Add Ingredient</button>
+
+                                <!-- IMAGE UPLOAD -->
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>File</span>
+                                        <input type="file" name="drink_img" id="drink_img">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
+                                </div>
+                                <div class="img-preview">
+                                    <img src="<%= typeof file != 'undefined' ? file : '' %>" alt="" class="responsive-img">
+                                </div>
                             
                                 <input type="submit" value="Save Drink" class="btn  blue-grey">
                             </form>

@@ -1,19 +1,43 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 const router = express.Router();
 const multer = require('multer');
 
-// SET STORAGE
-const storage = multer.diskStorage({
+// Set Storage Engine
+var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/uploads/')
+        cb(null, './public/uploads')
     },
     filename: function (req, file, cb) {
-        cb(null, new Date().toISOString() + file.originalname);
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
-})
+});
 
-const upload = multer({ storage: storage });
+// Initialize Storage
+const upload = multer({
+    storage: storage,
+    limits: { filesize: 1000000 },
+    fileFilter: function (req, file, cb) {
+        checkFileType(file, cb);
+    }
+});
+
+// Check File Type
+function checkFileType(file, cb) {
+    // Allowed Extensions
+    const filetypes = /jpeg|jpg|png|gif/;
+    // Check Extension
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    // Check MIME type
+    const mimetype = filetypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb("Error: Images Only");
+    }
+}
 
 // LOAD DATABASE DATA
 require('../models/Drink');
@@ -43,10 +67,14 @@ router.get('/', (req, res) => {
     Drink.find({})
         .then(drinks => {
             // console.log(drinks);
+            
             res.render('drinks/dashboard', { drinks: drinks });
         })
         .catch(err => { console.log(err) });
 });
+
+
+
 
 // ------------------------------------//
 //          ADD FORM ROUTE             //
@@ -121,7 +149,8 @@ router.post('/', upload.single('drink_img'), (req, res) => {
             name: req.body.name,
             description: req.body.description,
             note: req.body.note,
-            image: req.file.path
+            // image: req.file.path
+            image: req.file.filename
         }, function (err, drink) {
             if (err) {
                 console.log(err);
@@ -167,10 +196,6 @@ router.post('/', upload.single('drink_img'), (req, res) => {
                         console.log(ingredient);
                         drink.ingredients.push(ingredient);
                         console.log("Ingredient added");
-
-                        // Save Ingredients to Drink
-                        // drink.save();
-                        // console.log("Ingredient saved");
                     }
 
                     // Save Ingredients to Drink
@@ -184,7 +209,7 @@ router.post('/', upload.single('drink_img'), (req, res) => {
 });
 
 // ------------------------------------//
-//            GET by ID ROUTE          //
+//         GET ONE by ID ROUTE         //
 // ------------------------------------//
 router.get('/:id', (req, res) => {
     Drink.findById({ _id: req.params.id })
@@ -194,7 +219,9 @@ router.get('/:id', (req, res) => {
                 console.log(err);
                 res.redirect('/api');
             }
+            
             console.log(`Found: ${drink}`);
+            // res.sendFile(path.join(__dirname, `./uploads/${drink.image}`));
             res.render('drinks/detail', { drink: drink });
         });
 });
@@ -227,7 +254,7 @@ router.put('/:id/edit', (req, res) => {
             name: req.body.name, 
             description: req.body.description,
             notes: req.body.note,
-            image: req.file
+            // image: req.file
         }, (err, data) => {
         if (err) {
             console.log(err);
@@ -278,5 +305,9 @@ router.delete('/:id', (req, res) => {
 //     });
 // });
 
+
 module.exports = router;
+
+
+
 
