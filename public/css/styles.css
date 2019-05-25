@@ -7,6 +7,15 @@ body {
     background: #aaa;
 }
 
+ul {
+    list-style: none;
+}
+
+#drink-container {
+    display: flex;
+
+}
+
 #drink-img {
     width: 300px;
 }

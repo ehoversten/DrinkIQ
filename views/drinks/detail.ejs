@@ -22,34 +22,41 @@
         </nav>
     </div>
 
-    <div class="container mt-5">
+    <div id="drink-container" class="container mt-5">
         <% if(!drink) { %>
         <h2>Nothing Here</h2>
         <% } %>
         <% if(drink) { %>
-        <div class="col-md-6 m-auto">
+        <div class="col-md-6">
             <div class="row d-block">
-                <p><%= drink.name %></p>
-                <p><%= drink.description %></p>
-                <% if(drink.ingredients) { %>
-                    <ul>
-                    <% drink.ingredients.forEach(ingredient => { %>
-                        <li><%= ingredient.name %> - <%= ingredient.amt %> <%= ingredient.postscript %></li>
-                    <% }); %>
-                    </ul>
-                <% } %>
+                <h4>Drink Name: <%= drink.name %></h4>
+                <p>Description: <%= drink.description %></p>
+                
                 <p><%= drink.notes %></p>
                 <div id="img-container">
                     <img id="drink-img" src="/uploads/<%= drink.image %>" alt="alt image" class="responsive-img">
                 </div>
-                <div id="buttons">
-                    <a href="/api/<%= drink._id %>/edit" class="btn btn-success">Edit</a>
-                    <form action="/api/<%= drink._id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-danger ml-3">Delete</button>
-                    </form>
-                </div>
+                
             </div>
             
+        </div>
+
+        <div class="col-md-6">
+            <% if(drink.ingredients) { %>
+            <h5>Ingredients:</h5>
+            <hr>
+            <ul>
+                <% drink.ingredients.forEach(ingredient => { %>
+                <li><%= ingredient.name %> - <%= ingredient.amt %> <%= ingredient.postscript %></li>
+                <% }); %>
+            </ul>
+            <% } %>
+            <div id="buttons">
+                <a href="/api/<%= drink._id %>/edit" class="btn btn-success">Edit</a>
+                <form action="/api/<%= drink._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger ml-3">Delete</button>
+                </form>
+            </div>
         </div>
         <% } %>
     </div>
