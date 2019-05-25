@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../public/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
     <title>Drink List</title>
 </head>
 
@@ -36,7 +36,7 @@
                     <div class="card-content">
                         <span class="card-title center">Edit Drink</span>
                         <div class="row">
-                            <form id="edit-form" action="/api/<%= drink.id %>/edit?_method=PUT" method="POST" enctype="multipart/form-data">
+                            <form id="edit-form" action="/api/<%= drink.id %>?_method=PUT" method="POST">
                                 <div class="input-field col s12">
                                     <input type="text" name="name" id="name" value="<%= drink.name %>">
                                     <label for="name">New Drink</label>
@@ -75,18 +75,15 @@
                                 <button id="add-ingredient" class="btn red">Add Ingredient</button>
 
                                 <!-- IMAGE UPLOAD -->
-                                <div class="file-field input-field">
+                                <!-- <div class="file-field input-field">
                                     <div class="btn">
                                         <span>File</span>
-                                        <input type="file" name="drink_img" id="drink_img">
+                                        <input type="file" name="drink_img" id="drink_img" value="<%= drink.image %>">
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text">
                                     </div>
-                                </div>
-                                <div class="img-preview">
-                                    <img src="<%= typeof file != 'undefined' ? file : '' %>" alt="" class="responsive-img">
-                                </div>
+                                </div> -->
                             
                                 <input type="submit" value="Save Drink" class="btn  blue-grey">
                             </form>

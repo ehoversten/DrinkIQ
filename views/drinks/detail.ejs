@@ -40,24 +40,19 @@
                     </ul>
                 <% } %>
                 <p><%= drink.notes %></p>
-                <a href="/api/<%= drink._id %>/edit" class="btn btn-success">Edit</a>
-                <form action="/api/<%= drink._id %>?_method=DELETE" method="POST">
-                    <button class="btn btn-danger">Delete</button>
-                </form>
+                <div id="img-container">
+                    <img id="drink-img" src="/uploads/<%= drink.image %>" alt="alt image" class="responsive-img">
+                </div>
+                <div>
+                    <a href="/api/<%= drink._id %>/edit" class="btn btn-success">Edit</a>
+                    <form action="/api/<%= drink._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
             </div>
-            <div id="img-container">
-                <img src="/uploads/<%= drink.image %>" alt="alt image" class="responsive-img">
-            </div>
+            
         </div>
         <% } %>
     </div>
-
-    <div class="container">
-        <div id="button-js">
-            <button id="js-btn" class="btn btn-primary">+</button>
-        </div>
-        <div id="add-stuff"></div>
-    </div>
-
 
 <% include ../partials/footer %>
