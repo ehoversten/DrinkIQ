@@ -34,7 +34,6 @@
                 <% if(drink.ingredients) { %>
                     <ul>
                     <% drink.ingredients.forEach(ingredient => { %>
-                        <!-- <li><%= ingredient.id %></li> -->
                         <li><%= ingredient.name %> - <%= ingredient.amt %> <%= ingredient.postscript %></li>
                     <% }); %>
                     </ul>
@@ -43,10 +42,10 @@
                 <div id="img-container">
                     <img id="drink-img" src="/uploads/<%= drink.image %>" alt="alt image" class="responsive-img">
                 </div>
-                <div>
+                <div id="buttons">
                     <a href="/api/<%= drink._id %>/edit" class="btn btn-success">Edit</a>
                     <form action="/api/<%= drink._id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-danger ml-3">Delete</button>
                     </form>
                 </div>
             </div>

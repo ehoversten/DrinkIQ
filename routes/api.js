@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const router = express.Router();
-const methodOverride = require('method-override');
 const multer = require('multer');
 
 // Set Storage Engine
@@ -46,9 +45,6 @@ const Drink = mongoose.model('drinks');
 
 require('../models/Ingredient');
 const Ingredient = mongoose.model('Ingredient');
-
-// override with POST having ?_method=DELETE
-router.use(methodOverride('_method'));
 
 
 
@@ -252,36 +248,13 @@ router.get('/:id/edit', (req, res) => {
 // ------------------------------------//
 //         UPDATE DRINK ROUTE          //
 // ------------------------------------//
-// router.put('/:id', (req, res) => {
-//     Drink.findByIdAndUpdate( req.params.id, 
-//         {
-//             name: req.body.name, 
-//             description: req.body.description,
-//             notes: req.body.note,
-//             // image: req.body.drink_img
-//         }, (err, data) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log(data);
-//             console.log("**********************");
-//                 console.log(req.body.name);
-//                 console.log("**********************");
-//             res.redirect('/api');
-//         }
-//     });
-// });
-
 router.put('/:id', (req, res) => { 
-    console.log("Hit Edit Route");
-    Drink.findOneAndUpdate( req.params.id, req.body, (err, data) => {
+    
+    Drink.findByIdAndUpdate( { _id: req.params.id }, req.body, (err, data) => {
             if (err) {
                 console.log(err);
             } else {
-                // console.log(data);
-                console.log("**********************");
-                console.log(req.body.name);
-                console.log("**********************");
+                console.log(`Updated: ${data}`);
                 res.redirect('/api');
             }
         });
@@ -293,7 +266,7 @@ router.put('/:id', (req, res) => {
 // ------------------------------------//
 router.delete('/:id', (req, res) => {
 
-    Drink.findByIdAndRemove(req.params.id, function (err) {
+    Drink.findByIdAndRemove( { _id: req.params.id }, function (err) {
         if (err) {
             console.log(err);
         } else {

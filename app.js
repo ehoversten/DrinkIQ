@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-// const multer = require('multer');
 const ejs = require('ejs');
 const path = require('path');
 
@@ -21,42 +20,6 @@ mongoose.Promise = global.Promise;
 // by default, you need to set it to false.
 mongoose.set('useFindAndModify', false);
 
-// ********* Multer Middleware ************
-
-// // Set Storage Engine
-// var storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, './public/uploads')
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-//     }
-// });
-
-// // Initialize Storage
-// const upload = multer({
-//     storage: storage,
-//     limits: { filesize: 1000000 },
-//     fileFilter: function (req, file, cb) {
-//         checkFileType(file, cb);
-//     }
-// }).single('myImg');
-
-// // Check File Type
-// function checkFileType(file, cb) {
-//     // Allowed Extensions
-//     const filetypes = /jpeg|jpg|png|gif/;
-//     // Check Extension
-//     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-//     // Check MIME type
-//     const mimetype = filetypes.test(file.mimetype);
-
-//     if (mimetype && extname) {
-//         return cb(null, true);
-//     } else {
-//         cb("Error: Images Only");
-//     }
-// }
 
 // Instaniate App Instance
 const app = express();
@@ -96,37 +59,6 @@ app.use(methodOverride('_method'));
 app.get('/', (req, res) => {
     res.render('index');
 });
-
-// ------------------------------------//
-//         TESTING UPLOAD ROUTE        //
-// ------------------------------------//
-// app.get('/upload', (req, res) => {
-//     res.render('drinks/load');
-//     // res.send("LOAD");
-// });
-
-// app.post('/upload', (req, res) => {
-
-//     upload(req, res, (err) => {
-//         if (err) {
-//             res.render('drinks/load', { msg: err });
-//         } else {
-//             if (req.file == undefined) {
-//                 res.render('drinks/load', {
-//                     msg: "Error, No File Selected"
-//                 });
-//             } else {
-//                 res.render('drinks/load', {
-//                     msg: "File Uploaded",
-//                     file: `uploads/${req.file.filename}`
-//                 });
-//             }
-//             // console.log('********');
-//             // console.log(req.file);
-//             // res.send("test");
-//         }
-//     });
-// });
 
 
 app.get('/test', (req, res) => {

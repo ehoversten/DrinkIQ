@@ -10,3 +10,12 @@ body {
 #drink-img {
     width: 300px;
 }
+
+#img-container {
+    margin: 20px 10px;
+}
+
+#buttons {
+    display: flex;
+}
+
