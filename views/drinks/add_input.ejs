@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./styles.css" type="text/html">
     <title>Drink List</title>
 </head>
 
@@ -57,7 +57,7 @@
                                 </div>
                                 <!-- Dynamically Add Additional Inputs -->
                                 <div id="add-btn" >
-                                    <button id="add-inc" class="btn red"><a href="#" id="add-inc-link">+</a></button>
+                                    <button id="add-inc" class="btn red"><i class="fas fa-plus"></i> Add Ingredient</button>
                                 </div>
                                 <div id="add_ingredients"></div>
 
@@ -75,22 +75,13 @@
                             </form>
                         </div>
                     </div>
-                    <div class="card-action">
-                        <h5 id="drink-title">Find Your Drink ...</h5>
-                        <div class="input-field col s12">
-                            <input type="text" name="filter" id="filter">
-                            <label for="filter">Filter Drink</label>
-                        </div>
-                        <ul class="collection"></ul>
-                        <a href="#" class="clear-drinks btn black">Clear Drinks</a>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!--JavaScript at end of body for optimized loading-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
-    <script src="../../public/js/main_add.js"></script>
+    <script src="/js/main_add.js"></script>
 </body>
 
 </html>

@@ -47,7 +47,6 @@ require('../models/Ingredient');
 const Ingredient = mongoose.model('Ingredient');
 
 
-
 // ------------------------------------//
 //           GET ALL ROUTE             //
 // ------------------------------------//
@@ -72,8 +71,6 @@ router.get('/', (req, res) => {
         })
         .catch(err => { console.log(err) });
 });
-
-
 
 
 // ------------------------------------//
@@ -218,11 +215,11 @@ router.get('/:id', (req, res) => {
             if (err) {
                 console.log(err);
                 res.redirect('/api');
+            } else {
+                console.log(`Found: ${drink}`);
+                // res.sendFile(path.join(__dirname, `./uploads/${drink.image}`));
+                res.render('drinks/detail', { drink: drink });
             }
-            
-            console.log(`Found: ${drink}`);
-            // res.sendFile(path.join(__dirname, `./uploads/${drink.image}`));
-            res.render('drinks/detail', { drink: drink });
         });
 });
 

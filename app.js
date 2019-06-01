@@ -61,8 +61,14 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/test', (req, res) => {
-    res.send('Testing Test');
+app.get('/about', (req, res) => {
+    // res.send('About Page');
+    res.render('about');
+});
+
+app.get('/contact', (req, res) => {
+    // res.send('Contact page');
+    res.render('contact');
 });
 
 

@@ -1,6 +1,3 @@
-
-
-
 // Define the UI variables
 const form = document.querySelector("#drink-form");
 const drinkList = document.querySelector(".collection");
@@ -8,12 +5,15 @@ const clearBtn = document.querySelector(".clear-drinks");
 const filter = document.querySelector("#filter");
 const drinkInput = document.querySelector("#drink");
 const ingredientForm = document.querySelector('#ingredient-form');
-const ingredientInput = document.querySelector('#ingredient');
+const ingredientInput = document.querySelector('#ingredient_1');
 // const addBtn = document.querySelector('#add-ingredient');
 
 const newIngredientBtn = document.querySelector('#add-inc');
-const newIngredientLink = document.querySelector('#add-inc-link');
+// const newIngredientLink = document.querySelector('#add-inc-link');
 const newIngredientInput = document.querySelector('#add_ingredients');
+
+// Initialize count to one as a single Ingredient form input is already visible.
+let count = 1;
 
 // Load all Event Listeners
 loadEventListeners();
@@ -21,14 +21,14 @@ loadEventListeners();
 // Load all event Listeners
 function loadEventListeners() {
 
-    alert("Connected to Main.js");
-
     // DOM Load Event
     document.addEventListener('DOMContentLoaded', getDrinks);
+    // Add ****
+    newIngredientBtn.addEventListener('click', addToForm);
     // Add Drink event
     form.addEventListener("submit", addDrink);
     // Add Ingredient Event
-    ingredientForm.addEventListener("submit", addIngredients);
+    // ingredientForm.addEventListener("submit", addIngredients);
     // Add ****
     // addBtn.addEventListener('click', addToForm);
     // Remove Drink event
@@ -38,9 +38,7 @@ function loadEventListeners() {
     // Filter Drinks
     filter.addEventListener('keyup', filterDrinks);
 
-    // Add ****
-    // newIngredientBtn.addEventListener('click', addToForm);
-    newIngredientLink.addEventListener('click', addToForm);
+    // newIngredientLink.addEventListener('click', addToForm);
 }
 
 // Get Drinks from Local Storage
@@ -191,36 +189,42 @@ function filterDrinks(e) {
 // Add Ingredients
 function addIngredients(e) {
     e.preventDefault();
-
 }
 
 // Add Additional Ingredient Input 
 function addToForm(e) {
     e.preventDefault();
+
+    console.log("I've been clicked");
     // if no input value exists
     if (ingredientInput.value === '') {
         alert("Add an Ingredient");
     } else {
+        console.log("Bingo");
         // Create(add) an Input to #ingredient-form
         const newInputDiv = document.createElement("div");
         const newInput = document.createElement("input");
         // Add Class
         newInputDiv.className = 'input-field';
         newInputDiv.innerHTML = `
-            <div class="input-field col s4">
-                <input type="text" name="ingredient" id="ingredient" >
-                <label for="ingredient">Ingredient</label>
-            </div >
-            <div class="input-field col s4">
-                <input type="text" name="amt" id="amt">
-                <label for="amt">Amount</label>
-            </div>
-            <div class="input-field col s4">
-                <input type="text" name="measurement" id="measurement">
-                <label for="measurement">Measurement</label>
-            </div>`;
+                <div class="input-field col s4 mr-3">
+                    <input type="text" name="ingredient-${count}" id="ingredient-${count}" >
+                    <label for="ingredient-${count}">Ingredient</label>
+                </div >
+                <div class="input-field col s4 mr-3">
+                    <input type="text" name="amt-${count}" id="amt-${count}">
+                    <label for="amt-${count}">Amount</label>
+                </div>
+                <div class="input-field col s4 mr-3">
+                    <input type="text" name="measurement-${count}" id="measurement-${count}">
+                    <label for="measurement-${count}">Measurement</label>
+                </div>`;
+
         // Create text node
         document.getElementById('add_ingredients').appendChild(newInputDiv);
+
+        // Increment Counter
+        count++;
     }
 
 }
