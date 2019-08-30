@@ -6,10 +6,7 @@ const filter = document.querySelector("#filter");
 const drinkInput = document.querySelector("#drink");
 const ingredientForm = document.querySelector('#ingredient-form');
 const ingredientInput = document.querySelector('#ingredient_1');
-// const addBtn = document.querySelector('#add-ingredient');
-
 const newIngredientBtn = document.querySelector('#add-inc');
-// const newIngredientLink = document.querySelector('#add-inc-link');
 const newIngredientInput = document.querySelector('#add_ingredients');
 
 // Initialize count to one as a single Ingredient form input is already visible.
@@ -23,22 +20,23 @@ function loadEventListeners() {
 
     // DOM Load Event
     document.addEventListener('DOMContentLoaded', getDrinks);
+
+    // Add Ingredient Event
     // Add ****
     newIngredientBtn.addEventListener('click', addToForm);
+
     // Add Drink event
-    form.addEventListener("submit", addDrink);
-    // Add Ingredient Event
-    // ingredientForm.addEventListener("submit", addIngredients);
     // Add ****
-    // addBtn.addEventListener('click', addToForm);
+    form.addEventListener("submit", addDrink);
+
     // Remove Drink event
     drinkList.addEventListener('click', removeDrink);
+
     // Clear Drink List
     clearBtn.addEventListener('click', clearDrinks);
+
     // Filter Drinks
     filter.addEventListener('keyup', filterDrinks);
-
-    // newIngredientLink.addEventListener('click', addToForm);
 }
 
 // Get Drinks from Local Storage
@@ -108,20 +106,6 @@ function addDrink(e) {
     e.preventDefault();
 }
 
-// Storing Data in Local Storage
-// function storeDrinkInLocalStorage(drink) {
-//     let drinks;
-//     if (localStorage.getItem('drinks') === null) {
-//         drinks = [];
-//     } else {
-//         drinks = JSON.parse(localStorage.getItem('drinks'));
-//     }
-
-//     drinks.push(drink);
-
-//     localStorage.setItem('drinks', JSON.stringify(drinks));
-// }
-
 // Remove Drink
 function removeDrink(e) {
     // e.preventDefault();
@@ -138,24 +122,6 @@ function removeDrink(e) {
 
 }
 
-// Remove From Local Storage
-// function removeDrinkFromStorage(drinkItem) {
-//     let drinks;
-//     if (localStorage.getItem('drinks') === null) {
-//         drinks = [];
-//     } else {
-//         drinks = JSON.parse(localStorage.getItem('drinks'));
-//     }
-
-//     drinks.forEach(function (drink, index) {
-//         if (drinkItem.textContent == drink) {
-//             drinks.splice(index, 1);
-//         }
-//     });
-
-//     localStorage.setItem('drinks', JSON.stringify(drinks));
-// }
-
 // Clear All Drinks
 function clearDrinks() {
     // drinkList.innerHTML = '';
@@ -167,10 +133,6 @@ function clearDrinks() {
 
     clearDrinksFromStorage();
 }
-
-// function clearDrinksFromStorage() {
-//     localStorage.clear();
-// }
 
 // Filter Drinks
 function filterDrinks(e) {
