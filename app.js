@@ -20,15 +20,12 @@ mongoose.Promise = global.Promise;
 // by default, you need to set it to false.
 mongoose.set('useFindAndModify', false);
 
-
 // Instaniate App Instance
 const app = express();
 
-app.use(express.static(path.join(__dirname, "./public")));
-// app.use('/public/uploads', express.static('uploads'));
-
 // SET up STATIC files
-// app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, "./public")));
+
 // Set View EJS Templates as View Engine
 app.set('view engine', 'ejs');
 
